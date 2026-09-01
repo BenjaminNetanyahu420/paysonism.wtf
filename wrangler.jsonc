@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+
+  "name": "payson-mercury-portfolio",
+  "main": "./dist/server/index.js",
+  "compatibility_date": "2026-09-01",
+
+  "assets": {
+    "directory": "./dist/client",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "payson-portfolio-chat",
+      "database_id": "8b19ec15-f7bd-41dd-b658-bf42a6bd2656",
+      "migrations_dir": "./drizzle"
+    }
+  ]
+}
