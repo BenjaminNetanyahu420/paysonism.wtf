@@ -1,0 +1,23 @@
+{
+  "name": "payson-mercury-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "clean": "node scripts/clean.mjs",
+    "dev": "node scripts/dev.mjs",
+    "db:generate": "drizzle-kit generate",
+    "test": "node scripts/test.mjs",
+    "verify": "npm run test && npm run build && node scripts/verify.mjs"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.45.2"
+  },
+  "devDependencies": {
+    "drizzle-kit": "0.31.10"
+  }
+}
