@@ -460,14 +460,14 @@ body {
 	margin: 0px;
 }
 
+/* Mercury chat and forum: use the original panels, type, dividers, and sprites. */
 .chat-interface {
-	font-family: Tahoma, Verdana, sans-serif;
+	font-family: Verdana, Tahoma, sans-serif;
 }
 .chat-status {
-	padding: 4px 5px;
+	padding: 0px 0px 7px 0px;
 	margin: 0px 0px 7px 0px;
-	background-color: #111416;
-	border: 1px solid #394248;
+	border-bottom: 1px dotted #303A40;
 	color: #708A78;
 	font-family: "Courier New", Courier, monospace;
 	font-size: 85%;
@@ -478,29 +478,27 @@ body {
 	color: #9A5D5D;
 }
 .chat-messages {
-	padding: 5px;
-	margin: 0px 0px 6px 0px;
+	padding: 0px;
+	margin: 0px 0px 7px 0px;
 	height: 250px;
 	overflow-y: auto;
-	background-color: #101214;
-	border: 1px solid #343C41;
-	box-shadow: inset 0px 0px 7px #050505;
-	scrollbar-color: #3F494F #16191B;
+	border-top: 1px solid #303A40;
+	border-bottom: 1px solid #303A40;
 }
 .chat-empty {
-	padding: 8px 2px;
-	color: #555F64;
+	padding: 10px 2px;
+	margin: 0px;
+	color: #626E74;
 	font-family: "Courier New", Courier, monospace;
 	font-size: 85%;
 	text-align: center;
 }
 .chat-message {
-	padding: 0px 0px 7px 0px;
-	margin: 0px 0px 7px 0px;
-	border-bottom: 1px dotted #30383D;
+	padding: 7px 0px;
+	margin: 0px;
+	border-bottom: 1px dotted #303A40;
 }
 .chat-message:last-child {
-	margin-bottom: 0px;
 	border-bottom: 0px;
 }
 .chat-message-head {
@@ -510,77 +508,84 @@ body {
 	overflow: hidden;
 }
 .chat-username {
-	color: #91AAB6;
+	color: #829EAE;
 	font-weight: bold;
-	word-break: break-word;
+	word-wrap: break-word;
 }
 .chat-time {
-	color: #525D62;
+	color: #626E74;
 	float: right;
 }
 .chat-message-body {
-	color: #7C8589;
+	color: #737373;
 	font-size: 90%;
 	line-height: 1.35;
 	white-space: pre-wrap;
-	word-break: break-word;
+	word-wrap: break-word;
 }
 .chat-older,
 .chat-form button {
 	padding: 0px;
-	margin: 0px 0px 7px 0px;
-	width: 100%;
-	height: 25px;
-	background: linear-gradient(#555D62 0%, #24292C 47%, #121416 53%, #343B3F 100%);
-	border: 1px solid #0B0C0D;
-	box-shadow: inset 0px 0px 0px 1px #626B70;
-	color: #929CA1;
+	margin: 0px auto 7px auto;
+	width: 144px;
+	height: 36px;
+	display: block;
+	background: url('../theme/ft-butns4.jpg') no-repeat 0px 0px;
+	border: 0px;
+	color: #999999;
 	font-family: Tahoma, Verdana, sans-serif;
 	font-size: 85%;
 	font-weight: bold;
+	text-align: center;
 	text-shadow: 1px 1px 2px #000;
 	cursor: pointer;
 }
 .chat-older:hover,
 .chat-form button:hover {
-	color: #D2E1E8;
-	box-shadow: inset 0px 0px 0px 1px #7B8990, 0px 0px 4px #506A76;
+	background-position: 0px -36px;
+	color: #D6E1E7;
+}
+.chat-older:focus,
+.chat-form button:focus,
+.forum-button:focus,
+.forum-inline-button:focus,
+.forum-entry-link:focus,
+.sb-butn:focus {
+	outline: 1px dotted #A9CFDF;
+	outline-offset: 1px;
 }
 .chat-form label {
 	padding: 0px 0px 3px 0px;
 	display: block;
-	color: #626D72;
+	color: #626E74;
 	font-family: "Courier New", Courier, monospace;
 	font-size: 80%;
 	letter-spacing: 1px;
 }
 .chat-form input,
 .chat-form textarea {
-	box-sizing: border-box;
-	padding: 5px;
+	padding: 4px;
 	margin: 0px 0px 7px 0px;
-	width: 100%;
-	background-color: #111416;
-	border: 1px solid #3B454A;
-	color: #A4ADB1;
+	width: 160px;
+	background-color: #2E2E2E;
+	border: 1px solid #4B5960;
+	color: #AEB8BD;
 	font-family: Verdana, Tahoma, sans-serif;
 	font-size: 90%;
-	outline: none;
-	resize: vertical;
 }
 .chat-form input:focus,
 .chat-form textarea:focus {
-	border-color: #6C8996;
-	box-shadow: 0px 0px 4px #405965;
+	border-color: #829EAE;
+	outline: 1px dotted #4B6472;
 }
 .chat-form button:disabled {
-	color: #4E5559;
+	color: #626E74;
 	cursor: wait;
 }
 .chat-feedback {
 	padding: 0px 0px 2px 0px;
 	min-height: 12px;
-	color: #59656A;
+	color: #626E74;
 	font-family: "Courier New", Courier, monospace;
 	font-size: 75%;
 	text-align: center;
@@ -588,6 +593,158 @@ body {
 .chat-feedback-error {
 	color: #9A5D5D;
 }
+
+.forum-content-area { min-height: 560px; }
+.forum-side-info { padding-bottom: 5px; }
+.forum-status {
+	padding: 0px 0px 7px 0px;
+	margin: 0px 0px 8px 0px;
+	border-bottom: 1px dotted #303A40;
+	color: #708A78;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 80%;
+	letter-spacing: 1px;
+	text-align: center;
+}
+.forum-status-error, .forum-feedback-error { color: #9A5D5D; }
+.forum-muted { color: #626E74; font-family: "Courier New", Courier, monospace; font-size: 82%; line-height: 1.4; }
+.forum-main { min-height: 330px; padding-bottom: 2px; }
+.forum-loading, .forum-empty {
+	padding: 7px 0px 10px 0px;
+	margin: 0px 0px 10px 0px;
+	border-bottom: 1px dotted #303A40;
+	color: #626E74;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 90%;
+	text-align: center;
+}
+.sb-butns .forum-loading {
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+	font-size: 75%;
+	line-height: 28px;
+	text-align: center;
+}
+.forum-kicker, .forum-meta, .forum-flags, .forum-edited {
+	color: #626E74;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 82%;
+	letter-spacing: .5px;
+}
+.forum-feedback {
+	padding: 6px 0px;
+	margin: 0px 0px 10px 0px;
+	border-top: 1px dotted #303A40;
+	border-bottom: 1px dotted #303A40;
+	color: #737373;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 85%;
+	text-align: center;
+}
+.forum-action-row {
+	padding: 0px;
+	margin: 0px 0px 11px 0px;
+	overflow: hidden;
+}
+.forum-button, .forum-inline-button, .forum-entry-link {
+	padding: 0px;
+	margin: 0px auto 7px auto;
+	width: 144px;
+	height: 36px;
+	display: block;
+	background: url('../theme/ft-butns4.jpg') no-repeat 0px 0px;
+	border: 0px;
+	color: #999999;
+	font-family: Tahoma, Verdana, sans-serif;
+	font-size: 85%;
+	font-weight: bold;
+	line-height: 36px;
+	text-align: center;
+	text-decoration: none;
+	text-shadow: 1px 1px 2px #000;
+	cursor: pointer;
+}
+.forum-button:hover, .forum-inline-button:hover, .forum-entry-link:hover {
+	background-position: 0px -36px;
+	color: #D6E1E7;
+}
+.forum-action-row .forum-button,
+.forum-action-row .forum-inline-button {
+	float: left;
+	margin: 0px 2px 7px 0px;
+}
+.forum-side-info > .forum-button,
+.forum-main > .forum-button,
+.forum-form > .forum-button,
+.forum-owner-panel > .forum-inline-button {
+	margin-left: auto;
+	margin-right: auto;
+}
+.forum-entry-link { margin-bottom: 8px; }
+.forum-topic-row {
+	padding: 0px 0px 12px 0px;
+	margin: 0px 0px 12px 0px;
+	border-bottom: 1px solid #303A40;
+	overflow: hidden;
+}
+.forum-topic-heading, .forum-thread-title, .forum-section-label {
+	padding: 0px;
+	margin: 0px 0px 5px 0px;
+	color: #AEB8BD;
+	font-family: Tahoma, Verdana, sans-serif;
+	text-shadow: 1px 1px 2px #000;
+}
+.forum-topic-heading { font-size: 110%; }
+.forum-thread-title { padding: 0px 0px 10px 0px; font-size: 135%; }
+.forum-section-label { padding: 0px 0px 5px 0px; color: #8D4E4E; font-family: "Courier New", Courier, monospace; font-size: 95%; letter-spacing: 1px; }
+.forum-topic-link { color: #829EAE; text-decoration: underline; text-decoration-color: #4B6472; text-underline-offset: 2px; }
+.forum-topic-link:hover { color: #D5EAF4; text-decoration-color: #A9CFDF; text-shadow: 0px 0px 5px #557D90; }
+.forum-flags { padding: 0px 0px 4px 0px; color: #8D4E4E; }
+.forum-post {
+	padding: 0px 0px 12px 0px;
+	margin: 0px 0px 12px 0px;
+	border-bottom: 1px dotted #303A40;
+}
+.forum-post-hidden { border-bottom-color: #9A5D5D; }
+.forum-post-header {
+	padding-bottom: 7px;
+	margin-bottom: 8px;
+	border-bottom: 1px dotted #303A40;
+	overflow: hidden;
+}
+.forum-author { color: #829EAE; font-family: "Courier New", Courier, monospace; font-size: 88%; }
+.forum-post-header .forum-meta, .forum-edited { float: right; margin-left: 10px; }
+.forum-edited { color: #8D4E4E; }
+.forum-markdown { color: #737373; line-height: 1.48; word-wrap: break-word; }
+.forum-markdown p { padding-bottom: 9px; }
+.forum-markdown pre { padding: 7px; overflow-x: auto; background-color: #2E2E2E; border: 1px solid #303A40; color: #AEB8BD; text-shadow: none; }
+.forum-markdown code { font-family: "Courier New", Courier, monospace; color: #AEB8BD; }
+.forum-markdown blockquote { padding: 2px 10px; margin: 5px 0px 10px 0px; border-left: 3px solid #4B6472; color: #737373; }
+.forum-markdown img { display: block; max-width: 100%; height: auto; padding: 2px; margin: 7px 0px; background: #111111; border: 1px solid #4B5960; }
+.forum-markdown table { width: 100%; border-collapse: collapse; margin: 0px 0px 10px 0px; }
+.forum-markdown th, .forum-markdown td { padding: 5px; border: 1px dotted #303A40; }
+.forum-form {
+	padding: 10px 0px 12px 0px;
+	margin: 0px 0px 12px 0px;
+	border-top: 1px solid #303A40;
+	border-bottom: 1px solid #303A40;
+}
+.forum-auth-form { margin-bottom: 13px; }
+.forum-field { margin: 0px 0px 8px 0px; }
+.forum-label { display: block; padding: 0px 0px 3px 0px; color: #626E74; font-family: "Courier New", Courier, monospace; font-size: 80%; letter-spacing: 1px; }
+.forum-input, .forum-textarea {
+	padding: 4px;
+	width: 700px;
+	background-color: #2E2E2E;
+	border: 1px solid #4B5960;
+	color: #AEB8BD;
+	font-family: Verdana, Tahoma, sans-serif;
+	font-size: 90%;
+}
+.forum-input:focus, .forum-textarea:focus { border-color: #829EAE; outline: 1px dotted #4B6472; }
+.forum-turnstile { min-height: 65px; margin: 5px 0px 8px 0px; overflow: hidden; }
+.forum-owner-panel { padding: 10px 0px 0px 0px; margin: 11px 0px 0px 0px; border-top: 1px solid #303A40; }
 
 
 
@@ -933,4 +1090,382 @@ body {
 .ft-butn2-1:hover {
 	background: url('../theme/ft-butns4.jpg') no-repeat 0px -36px;
 	color: #000000;
+}
+
+
+
+
+/* Mercury interaction layer: deliberately limited to the existing machinery. */
+.mercury-cursor {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 14px;
+	height: 14px;
+	margin: -7px 0px 0px -7px;
+	border: 1px solid #a5b2b8;
+	box-sizing: border-box;
+	pointer-events: none;
+	z-index: 2147483647;
+	opacity: 0;
+	filter: drop-shadow(1px 1px 0px #111416);
+}
+.mercury-cursor:before,
+.mercury-cursor:after {
+	content: "";
+	position: absolute;
+	background: #d1dce0;
+	box-shadow: 1px 1px 0px #1d2529;
+}
+.mercury-cursor:before { width: 4px; height: 1px; top: 6px; left: -3px; }
+.mercury-cursor:after { width: 1px; height: 4px; top: -3px; left: 6px; }
+.mercury-cursor.is-visible { opacity: .82; }
+.mercury-cursor.is-target { width: 18px; height: 18px; margin: -9px 0px 0px -9px; border-color: #d4e2e7; opacity: 1; }
+.mercury-cursor.is-special { border-color: #9bb7c1; box-shadow: 0px 0px 3px #496773; }
+html.mercury-cursor-active,
+html.mercury-cursor-active a,
+html.mercury-cursor-active button { cursor: none; }
+html.mercury-cursor-active input,
+html.mercury-cursor-active textarea { cursor: text; }
+
+.mercury-pressed { transform: translate(0px, 1px); }
+.mercury-button { will-change: transform; }
+
+#mercury-banner.mercury-active #electric,
+#mercury-banner.mercury-active #kr-lights,
+#mercury-banner.mercury-active #bulbs-L,
+#mercury-banner.mercury-active #bulbs-R,
+#mercury-banner.mercury-active #flashing-L,
+#mercury-banner.mercury-active #flashing-R { filter: brightness(1.26) contrast(1.06); }
+#mercury-banner.mercury-pulse #electric { filter: brightness(1.85) contrast(1.15); }
+#mercury-banner.mercury-pulse #kr-lights { filter: brightness(1.45); }
+#mercury-banner.mercury-pulse #flashing-L,
+#mercury-banner.mercury-pulse #flashing-R { filter: brightness(1.55); }
+#mercury-banner.mercury-energy-high #electric { filter: brightness(1.58) contrast(1.1); }
+.mercury-machine-control { cursor: pointer; }
+.mercury-machine-control.mercury-control-hit { filter: brightness(1.65) contrast(1.1); }
+
+.mercury-diagnostic {
+	position: absolute;
+	top: 77px;
+	left: 50%;
+	width: 190px;
+	margin-left: -95px;
+	color: #9aafb7;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 9px;
+	letter-spacing: 1px;
+	line-height: 13px;
+	text-align: center;
+	text-shadow: 1px 1px 1px #000000;
+	pointer-events: none;
+	opacity: 0;
+	z-index: 9;
+}
+.mercury-diagnostic.is-visible { opacity: .88; }
+
+.Cbox,
+.Vbox { position: relative; }
+.Cbox:after,
+.Vbox:after {
+	content: attr(data-mercury-status);
+	position: absolute;
+	top: 4px;
+	right: 20px;
+	color: #879da6;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 8px;
+	letter-spacing: 1px;
+	text-shadow: 1px 1px 1px #000000;
+	opacity: 0;
+	pointer-events: none;
+	z-index: 12;
+}
+.Vbox:after { right: 14px; }
+.Cbox.mercury-panel-starting:before,
+.Vbox.mercury-panel-starting:before {
+	content: "";
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 2px;
+	background: #afc4cb;
+	box-shadow: 0px 0px 4px #6e8e9b;
+	opacity: .7;
+	pointer-events: none;
+	z-index: 11;
+	animation: mercury-panel-scan .28s steps(6, end) both;
+}
+.Cbox.mercury-panel-starting:after,
+.Vbox.mercury-panel-starting:after { animation: mercury-status .36s steps(2, end) both; }
+@keyframes mercury-panel-scan { from { transform: translateY(0px); } to { transform: translateY(210px); opacity: 0; } }
+@keyframes mercury-status { 0%, 100% { opacity: 0; } 18%, 75% { opacity: .82; } }
+
+.project-feature > a.mercury-monitor {
+	position: relative;
+	display: block;
+	float: left;
+	line-height: 0;
+}
+.project-feature > a.mercury-monitor .project-thumb { float: none; }
+.mercury-monitor:before {
+	content: "";
+	position: absolute;
+	left: 3px;
+	top: 3px;
+	right: 19px;
+	height: 1px;
+	background: #cad9dd;
+	box-shadow: 0px 0px 3px #7b9eaa;
+	opacity: 0;
+	pointer-events: none;
+	z-index: 2;
+}
+.mercury-monitor.is-scanning:before { animation: mercury-monitor-scan .18s steps(5, end) both; }
+.mercury-monitor-label {
+	position: absolute;
+	left: 7px;
+	bottom: 9px;
+	padding: 2px 3px;
+	background: #121719;
+	border: 1px solid #435158;
+	color: #a4b7be;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 8px;
+	letter-spacing: .6px;
+	line-height: 10px;
+	white-space: nowrap;
+	opacity: 0;
+	pointer-events: none;
+	z-index: 3;
+}
+.mercury-monitor.is-scanning .mercury-monitor-label { animation: mercury-monitor-label .8s steps(2, end) both; }
+.mercury-monitor.is-transmitting .project-thumb { filter: brightness(1.1) contrast(1.04); }
+.mercury-transmission-band {
+	position: absolute;
+	left: 3px;
+	right: 19px;
+	background-repeat: no-repeat;
+	pointer-events: none;
+	z-index: 2;
+	opacity: 0;
+	animation: mercury-band-in .18s steps(3, end) forwards;
+}
+@keyframes mercury-monitor-scan { from { transform: translateY(0px); opacity: .9; } to { transform: translateY(124px); opacity: 0; } }
+@keyframes mercury-monitor-label { 0%, 100% { opacity: 0; } 12%, 72% { opacity: .88; } }
+@keyframes mercury-band-in { from { opacity: 0; transform: translateX(-2px); } to { opacity: 1; transform: translateX(0px); } }
+
+@media (prefers-reduced-motion: reduce) {
+	.mercury-cursor { display: none; }
+	.Cbox.mercury-panel-starting:before,
+	.Vbox.mercury-panel-starting:before,
+	.Cbox.mercury-panel-starting:after,
+	.Vbox.mercury-panel-starting:after,
+	.mercury-monitor.is-scanning:before,
+	.mercury-monitor.is-scanning .mercury-monitor-label,
+	.mercury-transmission-band { animation: none; }
+	.Cbox.mercury-panel-starting:after,
+	.Vbox.mercury-panel-starting:after { opacity: .6; }
+}
+
+
+
+
+/* Mercury arcade overhaul: drawn from the existing steel, relay, and wire palette. */
+.mercury-arcade-sparks {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 2147483646;
+}
+
+.mercury-probe {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 22px;
+	height: 22px;
+	margin: -3px 0px 0px -3px;
+	pointer-events: none;
+	opacity: 0;
+	z-index: 2147483647;
+	filter: drop-shadow(1px 1px 0px #111416);
+}
+.mercury-probe.is-visible { opacity: 1; }
+.mercury-probe-bracket {
+	position: absolute;
+	width: 6px;
+	height: 6px;
+	border-color: #94a4aa;
+	border-style: solid;
+	border-width: 0px;
+	box-sizing: border-box;
+}
+.mercury-probe-bracket.is-nw { left: 3px; top: 3px; border-left-width: 1px; border-top-width: 1px; }
+.mercury-probe-bracket.is-ne { right: 3px; top: 3px; border-right-width: 1px; border-top-width: 1px; }
+.mercury-probe-bracket.is-sw { left: 3px; bottom: 3px; border-left-width: 1px; border-bottom-width: 1px; }
+.mercury-probe-bracket.is-se { right: 3px; bottom: 3px; border-right-width: 1px; border-bottom-width: 1px; }
+.mercury-probe-needle {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 7px;
+	height: 7px;
+	border-left: 1px solid #d2dddf;
+	border-top: 1px solid #d2dddf;
+	box-sizing: border-box;
+}
+.mercury-probe-needle:after {
+	content: "";
+	position: absolute;
+	left: 2px;
+	top: 2px;
+	width: 2px;
+	height: 2px;
+	background: #dce6e7;
+}
+.mercury-probe-lamp {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	width: 3px;
+	height: 3px;
+	background: #738187;
+	border: 1px solid #20282b;
+	box-sizing: border-box;
+}
+.mercury-probe.is-target .mercury-probe-bracket { border-color: #c3d2d6; }
+.mercury-probe.is-target .mercury-probe-lamp { background: #aebfc3; }
+.mercury-probe.is-armed .mercury-probe-bracket { border-color: #d4e1d9; }
+.mercury-probe.is-armed .mercury-probe-lamp { background: #a7c6a7; box-shadow: 0px 0px 2px #668466; }
+html.mercury-probe-active,
+html.mercury-probe-active a,
+html.mercury-probe-active button,
+html.mercury-probe-active .mercury-machine-control { cursor: none; }
+html.mercury-probe-active input,
+html.mercury-probe-active textarea { cursor: text; }
+
+.arcade-pressed { transform: translate(0px, 1px); }
+.mercury-arcade-button { will-change: transform; }
+.arcade-switch-hit { filter: brightness(1.18) contrast(1.04); }
+
+.mercury-machine-control { cursor: pointer; }
+.mercury-machine-control.arcade-armed {
+	outline: 1px solid #9cb5b1;
+	outline-offset: 1px;
+	box-shadow: 0px 0px 3px #66867d;
+}
+#electric.arcade-armed { outline-color: #c3d7cf; }
+#kr-lights.arcade-armed { box-shadow: 0px 1px 3px #718f88; }
+.arcade-contact-hit { filter: brightness(1.8) contrast(1.13); }
+.arcade-contact-miss { filter: brightness(1.28) contrast(1.05); }
+#electric.arcade-contact-hit { transform: translate(0px, 1px); }
+#bulbs-L.arcade-contact-hit,
+#bulbs-R.arcade-contact-hit { filter: brightness(1.58) contrast(1.08); }
+#flashing-L.arcade-contact-hit,
+#flashing-R.arcade-contact-hit { filter: brightness(1.75); }
+
+#mercury-banner.arcade-pulse-normal #electric,
+#mercury-banner.arcade-pulse-strong #electric { filter: brightness(1.7) contrast(1.12); }
+#mercury-banner.arcade-pulse-normal #kr-lights { filter: brightness(1.35); }
+#mercury-banner.arcade-pulse-strong #kr-lights { filter: brightness(1.65); }
+#mercury-banner.arcade-pulse-strong #flashing-L,
+#mercury-banner.arcade-pulse-strong #flashing-R { filter: brightness(1.5); }
+#mercury-banner[data-arcade-mode="linked"] #kr-lights { filter: brightness(1.13); }
+#mercury-banner[data-arcade-mode="sync"] #kr-lights { animation: mercury-indicator-step .65s steps(2, end) infinite; }
+#mercury-banner[data-arcade-mode="overclock"] #electric { animation: mercury-relay-step .42s steps(2, end) infinite; }
+#mercury-banner[data-arcade-mode="overclock"] #kr-lights { animation: mercury-indicator-step .42s steps(2, end) infinite; }
+#mercury-banner.arcade-idle[data-arcade-mode="sync"] #flashing-L,
+#mercury-banner.arcade-idle[data-arcade-mode="sync"] #flashing-R { filter: brightness(1.22); }
+@keyframes mercury-indicator-step { 0%, 100% { filter: brightness(1.12); } 50% { filter: brightness(1.42); } }
+@keyframes mercury-relay-step { 0%, 100% { filter: brightness(1.25); } 50% { filter: brightness(1.66) contrast(1.1); } }
+
+.mercury-arcade-banner-readout {
+	position: absolute;
+	left: 50%;
+	top: 64px;
+	width: 220px;
+	margin-left: -110px;
+	color: #a7bcc2;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 8px;
+	font-weight: bold;
+	letter-spacing: .8px;
+	line-height: 10px;
+	text-align: center;
+	text-shadow: 1px 1px 1px #000000;
+	opacity: 0;
+	pointer-events: none;
+	z-index: 9;
+}
+.mercury-arcade-banner-readout.is-visible { animation: mercury-readout .14s steps(2, end) both; }
+.mercury-arcade-panel-readout {
+	position: absolute;
+	right: 18px;
+	top: 4px;
+	color: #93aab1;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 8px;
+	font-weight: normal;
+	letter-spacing: .5px;
+	line-height: 10px;
+	text-shadow: 1px 1px 1px #000000;
+	opacity: 0;
+	pointer-events: none;
+}
+.Vtop .mercury-arcade-panel-readout { right: 10px; }
+.mercury-arcade-panel-readout.is-visible { animation: mercury-readout .14s steps(2, end) both; }
+@keyframes mercury-readout { 0% { opacity: 0; } 15%, 78% { opacity: .9; } 100% { opacity: 0; } }
+
+.Cbox.arcade-panel-online .Ctop:before,
+.Vbox.arcade-panel-online .Vtop:before {
+	content: "";
+	position: absolute;
+	top: 9px;
+	left: 18px;
+	width: 92px;
+	height: 1px;
+	background: #a7b8bc;
+	box-shadow: 5px 0px 0px #65757b, 14px 0px 0px #a7b8bc;
+	opacity: .75;
+	pointer-events: none;
+	animation: mercury-header-trace .26s steps(5, end) both;
+}
+.Vbox.arcade-panel-online .Vtop:before { left: 12px; width: 45px; }
+@keyframes mercury-header-trace { from { transform: translateX(-100px); } to { transform: translateX(720px); opacity: 0; } }
+
+.project-feature > a.mercury-monitor { position: relative; display: block; float: left; line-height: 0; }
+.mercury-monitor.is-scanning .project-thumb { filter: brightness(1.12) contrast(1.08); }
+.mercury-monitor-slice {
+	position: absolute;
+	left: 3px;
+	right: 19px;
+	background-repeat: no-repeat;
+	pointer-events: none;
+	z-index: 4;
+	animation: mercury-monitor-static .1s steps(2, end) both;
+}
+.mercury-monitor.is-scanning:before { animation: mercury-monitor-scan .16s steps(5, end) both; }
+.mercury-monitor.is-scanning .mercury-monitor-label { animation: mercury-monitor-label .62s steps(2, end) both; }
+@keyframes mercury-monitor-static { from { opacity: .95; } to { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+	.mercury-probe,
+	.mercury-arcade-sparks { display: none; }
+	#mercury-banner[data-arcade-mode="sync"] #kr-lights,
+	#mercury-banner[data-arcade-mode="overclock"] #electric,
+	#mercury-banner[data-arcade-mode="overclock"] #kr-lights,
+	.Cbox.arcade-panel-online .Ctop:before,
+	.Vbox.arcade-panel-online .Vtop:before,
+	.mercury-monitor-slice,
+	.mercury-monitor.is-scanning:before,
+	.mercury-monitor.is-scanning .mercury-monitor-label,
+	.mercury-arcade-banner-readout.is-visible,
+	.mercury-arcade-panel-readout.is-visible { animation: none; }
+	.mercury-arcade-banner-readout.is-visible,
+	.mercury-arcade-panel-readout.is-visible { opacity: .9; }
 }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The Payson Mercury community forum." />
+    <title>Payson Mercury Forum</title>
+    <link rel="stylesheet" type="text/css" href="css/mercury.css" />
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+  </head>
+  <body id="top">
+    <div id="mercury-wrapper">
+      <div id="mercury-banner">
+        <div id="mb-level-1"><div id="mb-level-1a"><div id="bulbs-L"></div></div><div id="mb-level-1b"><div id="electric"></div></div><div id="mb-level-1c"><div id="bulbs-R"></div></div></div>
+        <div id="mb-level-2"><div id="kr-lights"></div></div><div id="mb-level-3"></div>
+        <div id="mb-level-4"><div id="mb-level-4a"><div id="flashing-L"></div></div><div id="mb-level-4b"><div id="flashing-R"></div></div></div>
+        <div id="banner-nav"><ul>
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="#forum-index" data-forum-action="index">FORUM INDEX</a></li>
+          <li><a href="#new-topic" data-forum-action="compose">NEW TOPIC</a></li>
+          <li><a href="#account" data-forum-action="account">ACCOUNT</a></li>
+          <li><a href="#logout" data-forum-action="logout">LOG OUT</a></li>
+        </ul></div>
+      </div>
+
+      <div id="content-area" class="forum-content-area">
+        <div id="col-left">
+          <div class="Vbox"><div class="Vtop"><div class="VTitle">UPLINK STATUS</div></div><div class="Vmid"><div class="VInfo forum-side-info">
+            <p id="forum-status" class="forum-status">ESTABLISHING UPLINK...</p>
+            <p id="forum-user-label">GUEST TERMINAL</p>
+            <button type="button" class="forum-button" data-forum-action="account">ACCESS TERMINAL</button>
+          </div></div><div class="Vbtm"></div></div>
+
+          <div class="Vnavbox"><div class="Vnavtop"><div class="VnavTitle">FORUM SECTIONS</div></div><div class="Vnavmid"><div class="sb-butns"><ul id="forum-categories"><li><span class="forum-loading">LOADING SECTIONS...</span></li></ul></div></div><div class="Vnavbtm"></div></div>
+
+          <div class="Vbox"><div class="Vtop"><div class="VTitle">FILE RELAY</div></div><div class="Vmid"><div class="VInfo forum-side-info">
+            <p>AUTHENTICATED MEMBERS CAN ATTACH FILES UP TO 95 MiB.</p>
+            <p>FILES ARE HOSTED BY CATBOX; THIS SITE STORES ONLY THE RETURNED URL.</p>
+            <p class="forum-muted">DO NOT UPLOAD MALWARE, COPYRIGHT INFRINGEMENT, OR ILLEGAL CONTENT.</p>
+          </div></div><div class="Vbtm"></div></div>
+        </div>
+
+        <div id="col-right">
+          <div class="Cbox" id="forum-index"><div class="Ctop"><div id="forum-title" class="CTitle">MERCURY COMMUNITY FORUM</div></div><div class="Cmid"><div class="CInfo forum-main" id="forum-main" aria-live="polite"><p class="forum-loading">INITIALIZING FORUM TERMINAL...</p></div></div><div class="Cbtm"></div></div>
+        </div>
+      </div>
+
+      <div id="mercury-footer"><div id="ft-level-1">
+        <div class="footer-roller footer-roller-left"><div class="footer-roller-viewport"><p class="footer-roller-line">Community relay online.</p></div></div>
+        <div class="ft-butns-box"><div class="ft-links"><ul><li><a class="ft-social" href="https://gitlab.com/paysonism" target="_blank" rel="noopener" title="GitLab"><img src="theme/gitlab.svg" alt="GitLab" /></a></li><li><a class="ft-butn-2" href="#top" title="Page Top"></a></li><li><a class="ft-social" href="https://github.com/paysonism" target="_blank" rel="noopener" title="GitHub"><img src="theme/github.svg" alt="GitHub" /></a></li></ul></div></div>
+        <div class="footer-roller footer-roller-right"><div class="footer-roller-viewport"><p class="footer-roller-line">Post carefully. Build boldly.</p></div></div>
+      </div><div id="ft-level-2"><div class="ft-butns-box2"><div class="ft-links2"><ul>
+        <li><a class="ft-butn2-1" href="index.html">Home</a></li><li><a class="ft-butn2-1" href="#forum-index" data-forum-action="index">Index</a></li><li><a class="ft-butn2-1" href="#new-topic" data-forum-action="compose">New Topic</a></li><li><a class="ft-butn2-1" href="#account" data-forum-action="account">Account</a></li><li><a class="ft-butn2-1" href="#top">Top</a></li>
+      </ul></div></div></div></div>
+    </div>
+    <script type="text/javascript" src="js/footer-roller.js"></script>
+    <script type="module" src="js/mercury-interactions.js"></script>
+    <script type="module" src="js/forum.js"></script>
+  </body>
+</html>

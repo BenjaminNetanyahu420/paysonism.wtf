@@ -8,6 +8,20 @@
       "when": 1788236572306,
       "tag": "0000_glorious_azazel",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1788290007649,
+      "tag": "0001_shallow_warhawk",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1788290420064,
+      "tag": "0002_medical_logan",
+      "breakpoints": true
     }
   ]
 }

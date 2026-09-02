@@ -5,6 +5,10 @@
   "main": "./dist/server/index.js",
   "compatibility_date": "2026-09-01",
 
+  "vars": {
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAEkNtw-03KndcTJY"
+  },
+
   "assets": {
     "directory": "./dist/client",
     "binding": "ASSETS",

@@ -1,0 +1,9 @@
+# Copy to .dev.vars for fully functional local account testing.
+# This uses Cloudflare's documented test credentials and must never be set in production.
+FORUM_ALLOW_TEST_TURNSTILE=true
+FORUM_OWNER_HANDLES=your-local-owner-handle
+
+# To test your production Turnstile widget locally instead, remove the test flag above
+# and set both values in .dev.vars. Keep TURNSTILE_SECRET out of source control.
+# TURNSTILE_SITE_KEY=your-site-key
+# TURNSTILE_SECRET=your-secret-key
