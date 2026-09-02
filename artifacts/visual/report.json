@@ -1,0 +1,16 @@
+﻿{
+    "threshold":  0.985,
+    "banner":  {
+                   "ssim":  0.083218,
+                   "sameDimensions":  true,
+                   "width":  1062,
+                   "height":  275
+               },
+    "rail":  {
+                 "ssim":  0.016733,
+                 "sameDimensions":  true,
+                 "width":  764,
+                 "height":  65
+             },
+    "manualReviewRequired":  "Review overlay-banner.png and overlay-rail.png for any unmatched silhouette, socket, connector, capacitor, or rail edge larger than 2px."
+}

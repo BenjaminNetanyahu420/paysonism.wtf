@@ -47,27 +47,21 @@
 			listNode.appendChild(empty);
 		} else {
 			ordered.forEach(function (item) {
-				var article = document.createElement("article");
-				var head = document.createElement("div");
-				var username = document.createElement("span");
+				var entry = document.createElement("p");
+				var username = document.createElement("strong");
 				var time = document.createElement("time");
-				var body = document.createElement("div");
-
-				article.className = "chat-message";
-				head.className = "chat-message-head";
+				var body = document.createTextNode(item.message);
+				entry.className = "chat-message";
 				username.className = "chat-username";
 				time.className = "chat-time";
-				body.className = "chat-message-body";
 				username.textContent = item.username;
 				time.dateTime = item.created_at;
-				time.textContent = formatTime(item.created_at);
-				body.textContent = item.message;
-
-				head.appendChild(username);
-				head.appendChild(time);
-				article.appendChild(head);
-				article.appendChild(body);
-				listNode.appendChild(article);
+				time.textContent = " [" + formatTime(item.created_at) + "]";
+				entry.appendChild(username);
+				entry.appendChild(time);
+				entry.appendChild(document.createElement("br"));
+				entry.appendChild(body);
+				listNode.appendChild(entry);
 			});
 		}
 
