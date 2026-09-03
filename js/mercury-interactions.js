@@ -26,7 +26,6 @@ let armedIndex = 0;
 let lastMode = getMode(run.score).mode;
 let particleFrame = 0;
 let idleTimer = 0;
-let probe;
 let canvas;
 let context;
 let bannerReadout;
@@ -132,36 +131,6 @@ function acceptAction(target, cooldown) {
   applyMode(result.mode);
   showReadout("+" + result.points + " // RUN " + formatScore(run.score) + " // CH " + run.combo + " // HI " + formatScore(run.best), target);
   return true;
-}
-
-function makeProbe() {
-  if (!flags.pointer) return;
-  probe = document.createElement("div");
-  probe.className = "mercury-probe";
-  probe.setAttribute("aria-hidden", "true");
-  ["nw", "ne", "sw", "se"].forEach((position) => {
-    const bracket = document.createElement("i");
-    bracket.className = "mercury-probe-bracket is-" + position;
-    probe.appendChild(bracket);
-  });
-  const needle = document.createElement("b");
-  needle.className = "mercury-probe-needle";
-  probe.appendChild(needle);
-  const lamp = document.createElement("em");
-  lamp.className = "mercury-probe-lamp";
-  probe.appendChild(lamp);
-  document.body.appendChild(probe);
-  document.documentElement.classList.add("mercury-probe-active");
-}
-
-function updateProbe(event) {
-  if (!probe) return;
-  if (event.target.closest("input, textarea, select")) { probe.classList.remove("is-visible"); return; }
-  const target = event.target.closest("[data-arcade-id], a, button");
-  probe.classList.toggle("is-target", Boolean(target));
-  probe.classList.toggle("is-armed", Boolean(target && target.classList.contains("arcade-armed")));
-  probe.classList.add("is-visible");
-  probe.style.transform = "translate(" + event.clientX + "px," + event.clientY + "px)";
 }
 
 function setupParticles() {
@@ -350,7 +319,7 @@ function registerMonitors() {
 }
 
 function registerMechanicalButtons() {
-  const selector = "#banner-nav a, .ft-butn2-1, .ft-butn-2, .ft-social, .sb-butn, .chat-older, .chat-form button, .forum-button, .forum-inline-button, .forum-entry-link";
+  const selector = "#banner-nav a, .ft-butn2-1, .ft-butn-2, .ft-social, .sb-butn, .forum-button";
   document.querySelectorAll(selector).forEach((button) => button.classList.add("mercury-arcade-button"));
   document.addEventListener("pointerdown", (event) => {
     activity();
@@ -398,15 +367,13 @@ function stopIdleClock() {
 }
 
 createReadouts();
-makeProbe();
 setupParticles();
 registerControls();
 registerRoutes();
 registerMonitors();
 registerMechanicalButtons();
 registerPanels();
-document.addEventListener("pointermove", (event) => { activity(); updateProbe(event); }, { passive: true });
-document.addEventListener("pointerleave", () => probe?.classList.remove("is-visible"));
+document.addEventListener("pointermove", activity, { passive: true });
 document.addEventListener("keydown", activity, { passive: true });
 document.addEventListener("scroll", activity, { passive: true });
 document.addEventListener("touchstart", activity, { passive: true });

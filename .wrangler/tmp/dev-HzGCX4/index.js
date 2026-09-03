@@ -6,6 +6,7 @@ var encoder = new TextEncoder();
 var SESSION_TTL_SECONDS = 60 * 60 * 24 * 30;
 var TEST_TURNSTILE_SITE_KEY = "1x00000000000000000000AA";
 var TEST_TURNSTILE_SECRET = "1x0000000000000000000000000000000AA";
+var TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 function normalizeUsername(value) {
   return String(value || "").replace(/[\u0000-\u001F\u007F]/g, "").replace(/\s+/g, " ").trim();
 }
@@ -158,22 +159,48 @@ async function rateKey(request, scope, user) {
   return `${scope}:${user ? `u${user.id}` : `ip${await fingerprint(request)}`}`;
 }
 __name(rateKey, "rateKey");
+function turnstileCredentials(env) {
+  if (env.FORUM_ALLOW_TEST_TURNSTILE === "true") {
+    return { siteKey: TEST_TURNSTILE_SITE_KEY, secret: TEST_TURNSTILE_SECRET };
+  }
+  return {
+    siteKey: String(env.TURNSTILE_SITE_KEY || "").trim(),
+    secret: String(env.TURNSTILE_SECRET || "").trim()
+  };
+}
+__name(turnstileCredentials, "turnstileCredentials");
 async function verifyTurnstile(token, request, env) {
-  if (!token || typeof token !== "string" || token.length > 2048) return false;
-  const secret = env.FORUM_ALLOW_TEST_TURNSTILE === "true" ? TEST_TURNSTILE_SECRET : env.TURNSTILE_SECRET || "";
-  if (!secret) return false;
-  const body = new FormData();
-  body.append("secret", secret);
-  body.append("response", token);
-  body.append("remoteip", request.headers.get("CF-Connecting-IP") || "");
+  const { secret } = turnstileCredentials(env);
+  if (!secret) return { success: false, unavailable: true };
+  if (!token || typeof token !== "string" || token.length > 2048) return { success: false };
+  const body = new URLSearchParams({ secret, response: token });
+  const remoteIp = request.headers.get("CF-Connecting-IP");
+  if (remoteIp) body.set("remoteip", remoteIp);
   try {
-    const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body });
-    return Boolean((await response.json()).success);
+    const response = await fetch(TURNSTILE_VERIFY_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body.toString()
+    });
+    const result = await response.json().catch(() => null);
+    if (!response.ok || !result || typeof result !== "object") return { success: false, unavailable: true };
+    const errorCodes = Array.isArray(result["error-codes"]) ? result["error-codes"] : [];
+    return {
+      success: result.success === true,
+      unavailable: errorCodes.includes("missing-input-secret") || errorCodes.includes("invalid-input-secret")
+    };
   } catch {
-    return false;
+    return { success: false, unavailable: true };
   }
 }
 __name(verifyTurnstile, "verifyTurnstile");
+async function requireTurnstile(token, request, env) {
+  const result = await verifyTurnstile(token, request, env);
+  if (result.success) return null;
+  if (result.unavailable) return json({ error: "Account verification is unavailable. The site owner must configure Turnstile before registration can continue.", code: "turnstile_unavailable" }, 503);
+  return json({ error: "Turnstile verification failed. Complete the challenge again and retry.", code: "turnstile_failed" }, 400);
+}
+__name(requireTurnstile, "requireTurnstile");
 async function listMessages(request, env) {
   const url = new URL(request.url);
   const requestedLimit = Number.parseInt(url.searchParams.get("limit") || "25", 10);
@@ -226,8 +253,9 @@ function visibleClause(user, column = "t.is_hidden") {
 }
 __name(visibleClause, "visibleClause");
 async function forumConfig(env) {
-  const turnstileSiteKey = env.FORUM_ALLOW_TEST_TURNSTILE === "true" ? TEST_TURNSTILE_SITE_KEY : env.TURNSTILE_SITE_KEY || "";
-  return json({ turnstile_site_key: turnstileSiteKey, uploads_enabled: Boolean(env.CATBOX_USERHASH) });
+  const { siteKey, secret } = turnstileCredentials(env);
+  const turnstileEnabled = Boolean(siteKey && secret);
+  return json({ turnstile_site_key: turnstileEnabled ? siteKey : "", turnstile_enabled: turnstileEnabled, uploads_enabled: Boolean(env.CATBOX_USERHASH) });
 }
 __name(forumConfig, "forumConfig");
 async function forumMe(request, env) {
@@ -248,7 +276,8 @@ async function registerForumUser(request, env) {
   const password = String(body.password || "");
   if (!/^[A-Za-z0-9_.-]{3,24}$/.test(username)) return json({ error: "Handle must use 3 to 24 letters, numbers, dots, hyphens, or underscores" }, 400);
   if (password.length < 12 || password.length > 256) return json({ error: "Password must contain 12 to 256 characters" }, 400);
-  if (!await verifyTurnstile(body.turnstile_token, request, env)) return json({ error: "Turnstile verification failed" }, 400);
+  const turnstileError = await requireTurnstile(body.turnstile_token, request, env);
+  if (turnstileError) return turnstileError;
   try {
     const created = await env.DB.prepare("INSERT INTO forum_users (username, username_key, password_hash) VALUES (?, ?, ?) RETURNING id, username, username_key, is_suspended, created_at").bind(username, usernameKey, await hashPassword(password)).first();
     return json({ user: publicUser(created, env) }, 201, { "Set-Cookie": cookieForSession(await createSession(created.id, env)) });
@@ -271,7 +300,8 @@ async function loginForumUser(request, env) {
   const row = await env.DB.prepare("SELECT id, username, username_key, password_hash, is_suspended, created_at FROM forum_users WHERE username_key = ? LIMIT 1").bind(usernameKey).first();
   if (!row || !await verifyPassword(String(body.password || ""), row.password_hash)) return json({ error: "Invalid handle or password" }, 401);
   if (row.is_suspended) return json({ error: "This account is suspended" }, 403);
-  if (!await verifyTurnstile(body.turnstile_token, request, env)) return json({ error: "Turnstile verification failed" }, 400);
+  const turnstileError = await requireTurnstile(body.turnstile_token, request, env);
+  if (turnstileError) return turnstileError;
   return json({ user: publicUser(row, env) }, 200, { "Set-Cookie": cookieForSession(await createSession(row.id, env)) });
 }
 __name(loginForumUser, "loginForumUser");
@@ -691,7 +721,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-3SVios/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-5AYABV/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -723,7 +753,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-3SVios/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-5AYABV/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;

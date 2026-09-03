@@ -16,13 +16,13 @@
 	var refreshing = false;
 
 	function setStatus(text, offline) {
-		statusNode.textContent = text;
-		statusNode.className = offline ? "chat-status chat-status-offline" : "chat-status";
+		statusNode.textContent = offline ? text : "";
+		statusNode.hidden = !offline;
 	}
 
 	function setFeedback(text, error) {
-		feedbackNode.textContent = text;
-		feedbackNode.className = error ? "chat-feedback chat-feedback-error" : "chat-feedback";
+		feedbackNode.textContent = error ? text : "";
+		feedbackNode.hidden = !error;
 	}
 
 	function formatTime(value) {
@@ -43,7 +43,7 @@
 		if (!ordered.length) {
 			var empty = document.createElement("p");
 			empty.className = "chat-empty";
-			empty.textContent = "No transmissions yet. Start the channel.";
+			empty.textContent = "No messages yet. Sign the guestbook.";
 			listNode.appendChild(empty);
 		} else {
 			ordered.forEach(function (item) {
@@ -104,9 +104,10 @@
 				olderButton.hidden = payload.messages.length < pageSize;
 			}
 			render();
-			setStatus("CHANNEL ONLINE", false);
+			setStatus("", false);
 		} catch (error) {
-			setStatus("RECONNECTING...", true);
+			if (!initialized) listNode.replaceChildren();
+			setStatus("Chat is temporarily unavailable. Retrying automatically.", true);
 		} finally {
 			refreshing = false;
 		}
@@ -117,12 +118,12 @@
 		var username = usernameInput.value.trim();
 		var message = messageInput.value.trim();
 		if (!username || !message) {
-			setFeedback("HANDLE AND MESSAGE REQUIRED", true);
+			setFeedback("Enter a username and message.", true);
 			return;
 		}
 
 		submitButton.disabled = true;
-		setFeedback("TRANSMITTING...", false);
+		setFeedback("", false);
 		try {
 			var response = await fetch(apiUrl, {
 				method: "POST",
@@ -131,15 +132,15 @@
 			});
 			var payload = await response.json();
 			if (!response.ok) {
-				throw new Error(payload.error || "Transmission failed");
+				throw new Error(payload.error || "Message failed");
 			}
 			localStorage.setItem("payson-chat-username", username);
 			messages.set(payload.message.id, payload.message);
 			messageInput.value = "";
 			render();
-			setFeedback("TRANSMISSION RECEIVED", false);
+			setFeedback("", false);
 		} catch (error) {
-			setFeedback(String(error.message || error).toUpperCase(), true);
+			setFeedback(String(error.message || error), true);
 		} finally {
 			submitButton.disabled = false;
 			messageInput.focus();
