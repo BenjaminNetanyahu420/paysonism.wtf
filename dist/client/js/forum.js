@@ -214,6 +214,7 @@ function categorySection(category, topics, filtered) {
 	heading.append(element("p", "forum-meta", `${category.topic_count} ${Number(category.topic_count) === 1 ? "topic" : "topics"}`));
 	section.append(heading);
 	if (topics.length) topics.forEach((topic) => section.append(topicRow(topic)));
+	else section.append(element("p", "forum-category-empty", "No topics in this section."));
 	return section;
 }
 

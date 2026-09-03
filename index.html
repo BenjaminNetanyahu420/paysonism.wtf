@@ -30,6 +30,7 @@
 
     <!-- CSS FILES -->
     <link rel="stylesheet" type="text/css" href="css/mercury.css" />
+    <link href="https://fonts.googleapis.com/css?family=Aldrich" rel="stylesheet" type="text/css" />
   </head>
   <body id="top">
     <div id="mercury-wrapper">
@@ -80,6 +81,26 @@
                 <p><strong>150+ total projects</strong> published on GitHub and GitLab</p>
                 <p><strong>Primary Frameworks:</strong><br />C, C++, and KMDF</p>
                 <p><strong>Based in:</strong><br />United States</p>
+              </div>
+            </div>
+            <div class="Vbtm"></div>
+          </div>
+
+          <div class="Vbox" id="public-chat">
+            <div class="Vtop"><div class="VTitle">CHATROOM</div></div>
+            <div class="Vmid">
+              <div class="VInfo">
+                <p id="chat-status" class="chat-status">Connecting...</p>
+                <div id="chat-messages" class="chat-messages" aria-live="polite">
+                  <p class="chat-empty">Establishing Link...</p>
+                </div>
+                <p class="chat-older-row"><button id="chat-older" type="button" hidden="hidden">LOAD OLDER</button></p>
+                <form id="chat-form">
+                  <p><label for="chat-username">Your Username</label><br /><input id="chat-username" name="username" type="text" maxlength="24" autocomplete="nickname" required="required" /></p>
+                  <p><label for="chat-message">Message</label><br /><textarea id="chat-message" name="message" rows="3" maxlength="300" required="required"></textarea></p>
+                  <p><button id="chat-submit" type="submit">SEND</button></p>
+                </form>
+                <p id="chat-feedback" class="chat-feedback" aria-live="polite">GUESTBOOK - NO SIGNUP</p>
               </div>
             </div>
             <div class="Vbtm"></div>
@@ -143,28 +164,6 @@
                   >
                   archives.
                 </p>
-              </div>
-            </div>
-            <div class="Cbtm"></div>
-          </div>
-
-          <div class="Cbox" id="public-chat">
-            <div class="Ctop"><div class="CTitle">PUBLIC CHATROOM</div></div>
-            <div class="Cmid">
-              <div class="CInfo chat-interface">
-                <p id="chat-status" class="chat-error" aria-live="polite" hidden="hidden"></p>
-                <div id="chat-messages" class="chat-messages" aria-live="polite">
-                  <p class="chat-empty">Loading messages...</p>
-                </div>
-                <p class="chat-links"><button id="chat-older" class="forum-text-action" type="button" hidden="hidden">Older messages</button><a href="forum.html">Visit forum</a></p>
-                <form id="chat-form" class="chat-form">
-                  <label for="chat-username">Username</label>
-                  <input id="chat-username" name="username" type="text" maxlength="24" autocomplete="nickname" required="required" />
-                  <label for="chat-message">Message</label>
-                  <textarea id="chat-message" name="message" rows="4" maxlength="300" required="required"></textarea>
-                  <button id="chat-submit" class="forum-button" type="submit">POST MESSAGE</button>
-                  <p id="chat-feedback" class="chat-error" aria-live="polite" hidden="hidden"></p>
-                </form>
               </div>
             </div>
             <div class="Cbtm"></div>

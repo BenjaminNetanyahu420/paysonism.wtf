@@ -16,13 +16,13 @@
 	var refreshing = false;
 
 	function setStatus(text, offline) {
-		statusNode.textContent = offline ? text : "";
-		statusNode.hidden = !offline;
+		statusNode.textContent = text;
+		statusNode.className = offline ? "chat-status chat-status-offline" : "chat-status";
 	}
 
 	function setFeedback(text, error) {
-		feedbackNode.textContent = error ? text : "";
-		feedbackNode.hidden = !error;
+		feedbackNode.textContent = text;
+		feedbackNode.className = error ? "chat-feedback chat-feedback-error" : "chat-feedback";
 	}
 
 	function formatTime(value) {
@@ -43,31 +43,26 @@
 		if (!ordered.length) {
 			var empty = document.createElement("p");
 			empty.className = "chat-empty";
-			empty.textContent = "No messages yet. Sign the guestbook.";
+			empty.textContent = "No transmissions yet. Start the channel.";
 			listNode.appendChild(empty);
 		} else {
 			ordered.forEach(function (item) {
-				var article = document.createElement("article");
-				var head = document.createElement("div");
-				var username = document.createElement("span");
+				var entry = document.createElement("p");
+				var username = document.createElement("strong");
 				var time = document.createElement("time");
-				var body = document.createElement("div");
+				var body = document.createTextNode(item.message);
 
-				article.className = "chat-message";
-				head.className = "chat-message-head";
+				entry.className = "chat-message";
 				username.className = "chat-username";
 				time.className = "chat-time";
-				body.className = "chat-message-body";
 				username.textContent = item.username;
 				time.dateTime = item.created_at;
-				time.textContent = formatTime(item.created_at);
-				body.textContent = item.message;
-
-				head.appendChild(username);
-				head.appendChild(time);
-				article.appendChild(head);
-				article.appendChild(body);
-				listNode.appendChild(article);
+				time.textContent = " [" + formatTime(item.created_at) + "]";
+				entry.appendChild(username);
+				entry.appendChild(time);
+				entry.appendChild(document.createElement("br"));
+				entry.appendChild(body);
+				listNode.appendChild(entry);
 			});
 		}
 
@@ -104,10 +99,9 @@
 				olderButton.hidden = payload.messages.length < pageSize;
 			}
 			render();
-			setStatus("", false);
+			setStatus("CHANNEL ONLINE", false);
 		} catch (error) {
-			if (!initialized) listNode.replaceChildren();
-			setStatus("Chat is temporarily unavailable. Retrying automatically.", true);
+			setStatus("RECONNECTING...", true);
 		} finally {
 			refreshing = false;
 		}
@@ -118,12 +112,12 @@
 		var username = usernameInput.value.trim();
 		var message = messageInput.value.trim();
 		if (!username || !message) {
-			setFeedback("Enter a username and message.", true);
+			setFeedback("HANDLE AND MESSAGE REQUIRED", true);
 			return;
 		}
 
 		submitButton.disabled = true;
-		setFeedback("", false);
+		setFeedback("TRANSMITTING...", false);
 		try {
 			var response = await fetch(apiUrl, {
 				method: "POST",
@@ -138,9 +132,9 @@
 			messages.set(payload.message.id, payload.message);
 			messageInput.value = "";
 			render();
-			setFeedback("", false);
+			setFeedback("TRANSMISSION RECEIVED", false);
 		} catch (error) {
-			setFeedback(String(error.message || error), true);
+			setFeedback(String(error.message || error).toUpperCase(), true);
 		} finally {
 			submitButton.disabled = false;
 			messageInput.focus();

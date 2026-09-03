@@ -22,7 +22,7 @@ test("homepage imports the approved legacy copy without restoring legacy structu
 		"VMProtect Unpacker",
 		"Capstone for disassembly",
 		"Hypervisor Docs: VT-X Hypervisor Docs Collection",
-		"PUBLIC CHATROOM",
+		"CHATROOM",
 		"Visit forum"
 	]) assert.match(html, new RegExp(text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"));
 
